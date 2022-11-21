@@ -11,6 +11,12 @@
     font-weight: 200 900;
     font-stretch: 75% 125%;
   }
+  * {
+    @apply text-white
+  }
+  html {
+    @apply bg-black
+  }
 }
 
 html,
