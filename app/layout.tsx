@@ -1,5 +1,4 @@
 import "../styles/globals.css";
-import GitHubLogo from "../public/github.svg";
 import Image from "next/image";
 export default function RootLayout({
   children,
@@ -26,8 +25,8 @@ export default function RootLayout({
             <h1 className="text-6xl font-bold">GitLobby</h1>
           </header>
           {children}
-          <footer className="p-2">
-            <p className="text-4xl font-semibold">Footer</p>
+          <footer className="flex items-center justify-center p-2 px-6">
+            <p className="text-base font-light">Kostiantyn Shyrolapov @ 2022</p>
           </footer>
         </div>
       </body>

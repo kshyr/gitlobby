@@ -14,25 +14,32 @@
   * {
     @apply text-white
   }
-  html {
+  body {
     @apply bg-black
   }
 }
 
 @layer components {
+  .home-block {
+    @apply flex flex-col justify-center items-center border-white border-opacity-20 gap-3
+    hover:bg-white hover:scale-105 transition-all ease-in-out duration-500;
+  }
+  .home-block h2, .home-block p {
+    @apply group-hover:text-black;
+  }
   .border-main {
-    @apply border [&>*]:border-[0.5px] [&>*]:border-white
-    border-white border-opacity-20 [&>*]:border-opacity-10
+    @apply [&>*]:border-[0.5px] [&>*]:border-white [&>*]:border-opacity-20;
   }
   .grid-layout {
-    @apply h-screen grid grid-cols-1 grid-rows-[104px_1fr_55px]
-      border-main;
+    @apply h-screen grid grid-cols-1 grid-rows-[70px_1fr_55px] border-main;
   }
 }
 
 html,
 body {
+  overflow: hidden;
   padding: 0;
   margin: 0;
   font-family: 'Mona Sans';
+  box-sizing: border-box;
 }

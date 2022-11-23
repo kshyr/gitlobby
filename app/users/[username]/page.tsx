@@ -6,7 +6,7 @@ export default async function User({
   const data = await getData(params.username);
   return (
     <div className="user">
-      <h1 className="text-6xl font-normal text-justify">
+      <h1 className="text-justify text-6xl font-normal">
         {data.name + "'s"} Page
       </h1>
     </div>
@@ -14,8 +14,11 @@ export default async function User({
 }
 
 async function getData(username: string) {
-  const res = await fetch("https://api.github.com/users/" + username);
-
+  const res = await fetch("https://api.github.com/users/" + username, {
+    headers: {
+      Authorization: `Bearer ${process.env.GITHUB_ACCESS_TOKEN}`,
+    },
+  });
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
