@@ -45,16 +45,16 @@ export default async function Home() {
   );
 }
 
-async function getRateLimit() {
-  const res = await fetch("https://api.github.com/rate_limit", {
-    headers: {
-      Authorization: `Bearer ${process.env.GITHUB_ACCESS_TOKEN}`,
-    },
-  });
+// async function getRateLimit() {
+//   const res = await fetch("https://api.github.com/rate_limit", {
+//     headers: {
+//       Authorization: `Bearer ${process.env.GITHUB_ACCESS_TOKEN}`,
+//     },
+//   });
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
+//   if (!res.ok) {
+//     throw new Error("Failed to fetch data");
+//   }
 
-  return res.json();
-}
+//   return res.json();
+// }
