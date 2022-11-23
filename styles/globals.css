@@ -24,9 +24,6 @@
     @apply flex flex-col justify-center items-center border-white border-opacity-20 gap-3
     hover:bg-white hover:scale-105 transition-all ease-in-out duration-500;
   }
-  .home-block h2, .home-block p {
-    @apply group-hover:text-black;
-  }
   .border-main {
     @apply [&>*]:border-[0.5px] [&>*]:border-white [&>*]:border-opacity-20;
   }
