@@ -16,6 +16,7 @@ export default function RootLayout({
       <head />
       <body>
         <div className="grid-layout">
+          {/** @ts-expect-error */}
           <Header />
           {children}
           <Footer />
