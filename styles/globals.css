@@ -22,7 +22,10 @@
 @layer components {
   .home-block {
     @apply flex flex-col justify-center items-center border-white border-opacity-20 gap-3
-    hover:bg-white hover:scale-105 transition-all ease-in-out duration-500;
+    hover:bg-white hover:scale-105 transition-all ease-in-out duration-500 h-full w-full relative overflow-hidden;
+  }
+  .undermaintenance {
+    @apply absolute top-6 right-[-1.5rem] w-28 rotate-45;
   }
   .border-main {
     @apply [&>*]:border-[0.5px] [&>*]:border-white [&>*]:border-opacity-20;
