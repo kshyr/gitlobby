@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { SignIn, SignOut } from "../app/actions";
 import { unstable_getServerSession } from "next-auth";
 
@@ -14,9 +15,11 @@ export default async function Header() {
         width={40}
         height={40}
       />
-      <h1 className="bg-gradient-to-br from-white to-[#777777] bg-clip-text text-4xl font-bold leading-relaxed text-transparent">
-        GitLobby
-      </h1>
+      <Link href="/">
+        <h1 className="bg-gradient-to-br from-white to-[#777777] bg-clip-text text-4xl font-bold leading-relaxed text-transparent">
+          GitLobby
+        </h1>
+      </Link>
       {session?.user ? (
         <>
           <div className="ml-auto flex items-center justify-center gap-3">

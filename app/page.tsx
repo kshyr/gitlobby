@@ -1,13 +1,14 @@
 import Link from "next/link";
 export default async function Home() {
+  const data = await getRateLimit();
   return (
     <main className="grid h-full grid-rows-1 md:grid-rows-[400px_1fr]">
       <div className="grid grid-cols-1 md:grid-cols-[650px_1fr_1fr]">
-        <Link href="/repositories">
+        <Link href="/repos">
           <div className="home-block group/repos animate-slide-in-1 border-r hover:origin-top-left">
             <img src="undermaintenance.png" className="undermaintenance" />
             <h2 className="text-5xl group-hover/repos:text-black">
-              Popular repositories
+              {data.resources.core.remaining} / {data.resources.core.limit}
             </h2>
             <p className="text-center text-xl group-hover/repos:text-black">
               Find the most popular repositories on GitHub
@@ -53,16 +54,16 @@ export default async function Home() {
   );
 }
 
-// async function getRateLimit() {
-//   const res = await fetch("https://api.github.com/rate_limit", {
-//     headers: {
-//       Authorization: `Bearer ${process.env.GITHUB_ACCESS_TOKEN}`,
-//     },
-//   });
+async function getRateLimit() {
+  const res = await fetch("https://api.github.com/rate_limit", {
+    headers: {
+      Authorization: `Bearer ${process.env.GITHUB_ACCESS_TOKEN}`,
+    },
+  });
 
-//   if (!res.ok) {
-//     throw new Error("Failed to fetch data");
-//   }
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
 
-//   return res.json();
-// }
+  return res.json();
+}
