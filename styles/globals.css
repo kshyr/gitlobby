@@ -17,6 +17,12 @@
   body {
     @apply bg-black
   }
+  p {
+    @apply font-extralight
+  }
+  h2 {
+    @apply font-normal
+  }
 }
 
 @layer components {
@@ -31,7 +37,7 @@
     @apply [&>*]:border-[0.5px] [&>*]:border-white [&>*]:border-opacity-20;
   }
   .grid-layout {
-    @apply h-screen grid grid-cols-1 grid-rows-[70px_1fr_55px] border-main;
+    @apply h-screen grid grid-cols-1 grid-rows-[60px_1fr_50px] border-main;
   }
 }
 

@@ -6,15 +6,17 @@ export default async function Header() {
   const session = await unstable_getServerSession();
 
   return (
-    <header className="flex justify-start justify-items-center gap-2 p-2 px-6">
+    <header className="p flex justify-start justify-items-center gap-2 p-[3px] px-8">
       <Image
         src="/github.svg"
         alt="GitHub Logo"
         className="invert"
-        width={64}
-        height={64}
+        width={40}
+        height={40}
       />
-      <h1 className="text-6xl font-bold">GitLobby</h1>
+      <h1 className="bg-gradient-to-br from-white to-[#777777] bg-clip-text text-4xl font-bold leading-relaxed text-transparent">
+        GitLobby
+      </h1>
       {session?.user ? (
         <>
           <div className="ml-auto flex items-center justify-center gap-3">
