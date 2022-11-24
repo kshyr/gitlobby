@@ -21,7 +21,7 @@ export default async function Home() {
             Find out more about users
           </p>
         </div>
-        <div className="group/orgs home-block animate-slide-in-3hover:origin-top-right">
+        <div className="group/orgs home-block animate-slide-in-3 hover:origin-top-right">
           <img src="undermaintenance.png" className="undermaintenance" />
           <h2 className="text-5xl group-hover/orgs:text-black">
             Organizations
