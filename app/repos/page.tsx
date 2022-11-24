@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-
+import Loading from "./loading";
 export default function Repos() {
   const [repos, setRepos] = useState<any[]>([]);
 
