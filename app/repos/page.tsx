@@ -38,25 +38,34 @@ export default function Repos() {
       });
   };
 
+  const debounce = (fn: Function, ms = 300) => {
+    let timeoutId: ReturnType<typeof setTimeout>;
+    return function (this: any, ...args: any[]) {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => fn.apply(this, args), ms);
+    };
+  };
+
   const handleScroll = () => {
     if (
-      document.documentElement.scrollHeight -
-        document.documentElement.scrollTop ===
-      document.documentElement.clientHeight
+      !error &&
+      window.scrollY + window.innerHeight >=
+        document.documentElement.scrollHeight
     ) {
       setPage(page + 1);
     }
   };
 
   useEffect(() => {
-    document.addEventListener("scroll", handleScroll);
     fetchRepos();
-    return () => document.removeEventListener("scroll", handleScroll);
+    console.log(page);
+    document.addEventListener("scroll", debounce(handleScroll, 500));
+    return () =>
+      document.removeEventListener("scroll", debounce(handleScroll, 500));
   }, [page]);
 
   return (
     <div className="flex flex-col items-center justify-center">
-      {loading && <Loading />}
       {repos.map((repo, idx) => {
         return (
           <div
