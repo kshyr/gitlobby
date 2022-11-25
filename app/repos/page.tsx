@@ -2,6 +2,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Loading from "../loading";
+
 export default function Repos() {
   const [repos, setRepos] = useState<any[]>([]);
   const [page, setPage] = useState(1);
@@ -35,8 +36,20 @@ export default function Repos() {
       });
   };
 
+  const handleScroll = () => {
+    if (
+      document.documentElement.scrollHeight -
+        document.documentElement.scrollTop ===
+      document.documentElement.clientHeight
+    ) {
+      setPage(page + 1);
+    }
+  };
+
   useEffect(() => {
+    document.addEventListener("scroll", handleScroll);
     fetchRepos();
+    return () => document.removeEventListener("scroll", handleScroll);
   }, [page]);
 
   return (
