@@ -1,13 +1,15 @@
 "use client";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import Loading from "../loading";
 
 export default function Repos() {
   const [repos, setRepos] = useState<any[]>([]);
   const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [perPage, setPerPage] = useState(30);
+  const [error, setError] = useState(false);
 
   const fetchRepos = async () => {
     setLoading(true);
@@ -27,12 +29,12 @@ export default function Repos() {
         const newRepos = res.data.items.filter(
           (repo: any) => !repos.some((r: any) => r.id === repo.id)
         );
-        // FIXME: if newRepos is less than perPage, then call fetchRepos until newRepos.length === perPage
+        // TODO: if newRepos is less than perPage, then call fetchRepos until newRepos.length === perPage
         setRepos([...repos, ...newRepos]);
       })
       .catch((err) => {
-        setLoading(false);
-        console.log(err);
+        setError(true);
+        toast.error(err.message);
       });
   };
 
@@ -65,14 +67,8 @@ export default function Repos() {
           </div>
         );
       })}
-      <button
-        className=""
-        onClick={() => {
-          setPage(page + 1);
-        }}
-      >
-        Next?
-      </button>
+      <Toaster />
+      {loading && <Loading />}
     </div>
   );
 }
