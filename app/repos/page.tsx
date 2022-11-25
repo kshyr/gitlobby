@@ -1,11 +1,33 @@
 "use client";
 import { useEffect, useState } from "react";
-import Loading from "./loading";
+import Loading from "../loading";
 export default function Repos() {
   const [repos, setRepos] = useState<any[]>([]);
+  const [page, setPage] = useState(1);
+  const fetchRepos = async () => {
+    const res = await fetch(
+      `https://api.github.com/search/repositories?q=stars:>1&sort=stars&page=${page}&per_page=10`,
+      {
+        method: "GET",
+        headers: {
+          "User-Agent": "request",
+          Authorization: `Bearer ${process.env.GITHUB_ACCESS_TOKEN}`,
+          Accept: "application/vnd.github+json",
+        },
+      }
+    );
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch data");
+    }
+
+    res.json().then((data) => {
+      setRepos(Array.from(new Set(data.items)));
+    });
+  };
 
   useEffect(() => {
-    getRepos().then((repos) => setRepos(repos.items));
+    fetchRepos();
   }, []);
 
   return (
@@ -20,24 +42,15 @@ export default function Repos() {
           </div>
         );
       })}
+      <button
+        className=""
+        onClick={() => {
+          setPage(page + 1);
+          fetchRepos();
+        }}
+      >
+        Next?
+      </button>
     </div>
   );
 }
-const getRepos = async () => {
-  const res = await fetch(
-    "https://api.github.com/search/repositories?q=stars:>1&sort=stars&page=1&per_page=5",
-    {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${process.env.GITHUB_ACCESS_TOKEN}`,
-        Accept: "application/vnd.github+json",
-      },
-    }
-  );
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json();
-};
