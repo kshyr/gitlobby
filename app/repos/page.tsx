@@ -73,8 +73,10 @@ export default function Repos() {
             className="flex items-center justify-start rounded-md border border-white border-opacity-20 p-2"
             key={idx}
           >
-            {repo.name}
-            <Link href={"/users/" + repo.owner.login}>{repo.owner.login}</Link>
+            <Link href={`/users/${repo.owner.login}/${repo.name}`}>
+              {repo.name}
+            </Link>
+            <Link href={`/users/${repo.owner.login}`}>{repo.owner.login}</Link>
           </div>
         );
       })}
