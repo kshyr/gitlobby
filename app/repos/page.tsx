@@ -1,7 +1,7 @@
 "use client";
 import axios from "axios";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import Loading from "../loading";
 
@@ -12,6 +12,7 @@ export default function Repos() {
   const [perPage, setPerPage] = useState(15);
   const [error, setError] = useState(false);
 
+  const gridRef = useRef<HTMLDivElement>(null);
   const fetchRepos = async () => {
     setLoading(true);
     await axios
@@ -49,9 +50,9 @@ export default function Repos() {
 
   const handleScroll = () => {
     if (
-      !error &&
-      window.scrollY + window.innerHeight >=
-        document.documentElement.scrollHeight
+      gridRef.current &&
+      gridRef.current.clientHeight + gridRef.current.scrollTop ===
+        gridRef.current.scrollHeight
     ) {
       setPage(page + 1);
     }
@@ -60,13 +61,15 @@ export default function Repos() {
   useEffect(() => {
     fetchRepos();
     console.log(page);
-    document.addEventListener("scroll", debounce(handleScroll, 500));
-    return () =>
-      document.removeEventListener("scroll", debounce(handleScroll, 500));
+    gridRef.current?.addEventListener("scroll", handleScroll);
+    return () => gridRef.current?.removeEventListener("scroll", handleScroll);
   }, [page]);
 
   return (
-    <div className="fixed grid h-[calc(100vh-101px)] grid-cols-3 grid-rows-1 overflow-y-scroll">
+    <div
+      className="fixed grid h-[calc(100vh-101px)] grid-cols-3 grid-rows-1 overflow-y-scroll"
+      ref={gridRef}
+    >
       {/* misterious pixel ^ */}
       <div className="sticky top-0 box-border flex h-full flex-col items-center justify-center">
         filter menu
