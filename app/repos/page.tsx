@@ -9,7 +9,7 @@ export default function Repos() {
   const [repos, setRepos] = useState<any[]>([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
-  const [perPage, setPerPage] = useState(30);
+  const [perPage, setPerPage] = useState(15);
   const [error, setError] = useState(false);
 
   const fetchRepos = async () => {

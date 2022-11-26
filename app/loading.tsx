@@ -1,5 +1,4 @@
 "use client";
-import { CSSProperties } from "react";
 import { motion, MotionStyle } from "framer-motion";
 
 const circleStyle: MotionStyle = {
@@ -30,7 +29,7 @@ const span = {
 export default function Loading() {
   return (
     <div className="h-full bg-black">
-      <div className="fixed left-0 top-[60px] flex h-[calc(100vh-100px)] w-screen items-center justify-center before:fixed before:left-0 before:top-0 before:h-screen before:w-screen before:bg-black">
+      <div className="fixed left-0 top-[60px] flex h-[calc(100vh-100px)] w-screen items-center justify-center before:fixed before:left-0 before:top-0 before:h-screen before:w-screen before:bg-black before:bg-opacity-40">
         <motion.span
           style={circleStyle}
           initial="hidden"
