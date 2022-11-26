@@ -1,14 +1,11 @@
-export default async function User({
-  params,
-}: {
-  params: { username: string };
-}) {
-  const data = await getData(params.username);
+export default async function User({ params }: { params: { user: string } }) {
+  const data = await getData(params.user);
   return (
-    <div className="user">
-      <h1 className="text-justify text-6xl font-normal">
+    <div className="absolute left-0 top-[60px] flex h-[calc(100vh-100px)] w-screen flex-col items-center justify-center">
+      <h1 className="text-justify text-4xl font-normal">
         {data.name + "'s"} Page
       </h1>
+      <h3>Work in progress</h3>
     </div>
   );
 }

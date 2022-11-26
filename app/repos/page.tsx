@@ -1,5 +1,6 @@
 "use client";
 import axios from "axios";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import Loading from "../loading";
@@ -73,6 +74,7 @@ export default function Repos() {
             key={idx}
           >
             {repo.name}
+            <Link href={"/users/" + repo.owner.login}>{repo.owner.login}</Link>
           </div>
         );
       })}
