@@ -14,7 +14,7 @@ const circleStyle: MotionStyle = {
   width: "3rem",
   height: "3rem",
   border: "0.5rem solid #e9e9e9",
-  borderTop: "0.5rem solid #3498db",
+  borderTop: "0.5rem solid #000000",
   borderRadius: "50%",
   position: "absolute",
   boxSizing: "border-box",

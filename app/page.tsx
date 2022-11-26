@@ -1,8 +1,7 @@
 import Link from "next/link";
 export default async function Home() {
-  //const data = await getRateLimit();
   return (
-    <main className="grid h-full grid-rows-1 overflow-x-hidden md:grid-rows-[400px_1fr]">
+    <main className="grid h-full grid-rows-1 overflow-hidden md:grid-rows-[400px_1fr]">
       <div className="grid grid-cols-1 md:grid-cols-[650px_1fr_1fr]">
         <Link href="/repos">
           <div className="home-block group/repos animate-slide-in-1 border-r hover:origin-top-left">
@@ -52,18 +51,4 @@ export default async function Home() {
       </div>
     </main>
   );
-}
-
-async function getRateLimit() {
-  const res = await fetch("https://api.github.com/rate_limit", {
-    headers: {
-      Authorization: `Bearer ${process.env.GITHUB_ACCESS_TOKEN}`,
-    },
-  });
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json();
 }
