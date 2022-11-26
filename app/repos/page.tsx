@@ -67,12 +67,21 @@ export default function Repos() {
 
   return (
     <div
-      className="fixed grid h-[calc(100vh-101px)] grid-cols-3 grid-rows-1 overflow-y-scroll"
+      className=" grid h-[calc(100vh-101px)] grid-cols-3 grid-rows-1 overflow-y-scroll"
       ref={gridRef}
     >
       {/* misterious pixel ^ */}
-      <div className="sticky top-0 box-border flex h-full flex-col items-center justify-center">
-        filter menu
+      <div className="sticky top-0 box-border flex h-full flex-row items-center justify-center">
+        <form className="w-[80%]">
+          <label htmlFor="perPage">Per Page</label>
+          <input
+            type="number"
+            name="perPage"
+            id="perPage"
+            value={perPage}
+            onChange={(e) => setPerPage(parseInt(e.target.value))}
+          />
+        </form>
       </div>
       <div className="flex flex-col items-center justify-start">
         {repos.map((repo, idx) => {
@@ -101,7 +110,7 @@ export default function Repos() {
                   return (
                     <span
                       key={idx}
-                      className="relative mx-1 inline-block transition-transform duration-150 hover:scale-105"
+                      className="relative mx-1 inline-block cursor-default transition-transform duration-150 hover:scale-105"
                     >
                       {" "}
                       {topic}

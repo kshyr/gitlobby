@@ -12,17 +12,27 @@
     font-stretch: 75% 125%;
   }
   * {
-    @apply text-white
+    @apply text-white box-border;
   }
   body {
-    @apply bg-black
+    @apply bg-black;
   }
   p {
-    @apply font-extralight
+    @apply font-extralight;
   }
   h2 {
-    @apply font-normal
+    @apply font-normal;
   }
+  ::-webkit-scrollbar {
+    @apply w-2 right-10;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-white bg-opacity-40 hover:bg-opacity-60;
+  }
+
 }
 
 @layer components {
