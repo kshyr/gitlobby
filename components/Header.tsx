@@ -7,7 +7,7 @@ export default async function Header() {
   const session = await unstable_getServerSession();
 
   return (
-    <header className="p flex justify-start justify-items-center gap-2 p-[3px] px-8">
+    <header className="z-20 flex justify-start justify-items-center gap-2 p-[3px] px-8">
       <Image
         src="/github.svg"
         alt="GitHub Logo"

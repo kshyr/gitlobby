@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="flex items-center justify-between p-2 px-10 text-sm [&>*]:font-extralight">
+    <footer className="sticky flex items-center justify-between p-2 px-10 text-sm [&>*]:font-extralight">
       <span className="flex items-center justify-start gap-1">
         With love to{" "}
         <strong className="bg-gradient-to-br from-[#b2b69b] to-[#bb80e8] bg-clip-text font-semibold text-transparent hover:from-[#d6dbbb] hover:to-[#cc8dfc]">

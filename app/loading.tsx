@@ -2,13 +2,6 @@
 import { CSSProperties } from "react";
 import { motion, MotionStyle } from "framer-motion";
 
-const containerStyle: React.CSSProperties = {
-  position: "relative",
-  width: "3rem",
-  height: "3rem",
-  boxSizing: "border-box",
-};
-
 const circleStyle: MotionStyle = {
   display: "block",
   width: "3rem",
@@ -16,10 +9,8 @@ const circleStyle: MotionStyle = {
   border: "0.5rem solid #e9e9e9",
   borderTop: "0.5rem solid #000000",
   borderRadius: "50%",
-  position: "absolute",
+  position: "relative",
   boxSizing: "border-box",
-  top: 0,
-  left: 0,
 };
 
 const spinTransition = {
@@ -38,13 +29,15 @@ const span = {
 
 export default function Loading() {
   return (
-    <div style={containerStyle}>
-      <motion.span
-        style={circleStyle}
-        initial="hidden"
-        animate="visible"
-        variants={span}
-      />
+    <div className="h-full bg-black">
+      <div className="fixed left-0 top-[60px] flex h-[calc(100vh-100px)] w-screen items-center justify-center before:fixed before:left-0 before:top-0 before:h-screen before:w-screen before:bg-black">
+        <motion.span
+          style={circleStyle}
+          initial="hidden"
+          animate="visible"
+          variants={span}
+        />
+      </div>
     </div>
   );
 }
