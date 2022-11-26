@@ -5,19 +5,33 @@ import { useEffect, useState, useRef } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import Loading from "../loading";
 
+type SearchQuery = {
+  q: string;
+  sort: string;
+  order: string;
+  perPage: number;
+  language: string;
+};
+
 export default function Repos() {
   const [repos, setRepos] = useState<any[]>([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
-  const [perPage, setPerPage] = useState(15);
   const [error, setError] = useState(false);
+  const [searchQuery, setSearchQuery] = useState<SearchQuery>({
+    q: "",
+    sort: "stars",
+    order: "desc",
+    perPage: 15,
+    language: "javascript",
+  });
 
   const gridRef = useRef<HTMLDivElement>(null);
   const fetchRepos = async () => {
     setLoading(true);
     await axios
       .get(
-        `https://api.github.com/search/repositories?q=created:">2018-09-30"language:typescript&sort=stars&order=desc&page=${page}&per_page=${perPage}`,
+        `https://api.github.com/search/repositories?q=created:">2018-09-30"language:typescript&sort=${searchQuery.sort}&order=${searchQuery.order}&page=${page}&per_page=${searchQuery.perPage}`,
         {
           headers: {
             Authorization: `Bearer ${process.env.GITHUB_ACCESS_TOKEN}`,
@@ -75,11 +89,14 @@ export default function Repos() {
         <form className="w-[80%]">
           <label htmlFor="perPage">Per Page</label>
           <input
-            type="number"
             name="perPage"
-            id="perPage"
-            value={perPage}
-            onChange={(e) => setPerPage(parseInt(e.target.value))}
+            value={searchQuery.perPage}
+            onChange={(e) =>
+              setSearchQuery({
+                ...searchQuery,
+                perPage: parseInt(e.target.value),
+              })
+            }
           />
         </form>
       </div>
