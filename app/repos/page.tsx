@@ -66,30 +66,53 @@ export default function Repos() {
   }, [page]);
 
   return (
-    <div className="flex flex-col items-center justify-center">
-      {repos.map((repo, idx) => {
-        return (
-          <div
-            className="flex items-center justify-start rounded-md border border-white border-opacity-20 p-2"
-            key={idx}
-          >
-            <h1 className="text-blue-300">
-              <Link href={`/users/${repo.full_name}`}>{repo.name}</Link>
-            </h1>
-            <h2>
-              by{" "}
-              <Link
-                href={`/users/${repo.owner.login}`}
-                className="text-yellow-200"
-              >
-                {repo.owner.login}
-              </Link>
-            </h2>
-          </div>
-        );
-      })}
-      <Toaster />
-      {loading && <Loading />}
+    <div className="fixed grid h-[calc(100vh-101px)] grid-cols-3 grid-rows-1 overflow-y-scroll">
+      {/* misterious pixel ^ */}
+      <div className="sticky top-0 box-border flex h-full flex-col items-center justify-center">
+        filter menu
+      </div>
+      <div className="flex flex-col items-center justify-start">
+        {repos.map((repo, idx) => {
+          return (
+            <div
+              className="flex w-full flex-col items-center justify-start rounded-md border border-white border-opacity-20 p-2"
+              key={idx}
+            >
+              <h1 className="text-blue-300">
+                <Link href={`/users/${repo.full_name}`}>{repo.name}</Link>
+                &#11088;{Math.floor(repo.stargazers_count / 100) / 10.0 + "k"}
+              </h1>
+              <h2>
+                by{" "}
+                <Link
+                  href={`/users/${repo.owner.login}`}
+                  className="text-yellow-200"
+                >
+                  {repo.owner.login}
+                </Link>
+              </h2>
+              <p>{repo.description}</p>
+              <p>Language: {repo.language}</p>
+              <p className="">
+                {repo.topics?.map((topic: string, idx: number) => {
+                  return (
+                    <span
+                      key={idx}
+                      className="relative mx-1 inline-block transition-transform duration-150 hover:scale-105"
+                    >
+                      {" "}
+                      {topic}
+                    </span>
+                  );
+                })}
+              </p>
+              <a href={repo.homepage}>{repo.homepage}</a>
+            </div>
+          );
+        })}
+        <Toaster />
+        {loading && <Loading />}
+      </div>
     </div>
   );
 }
