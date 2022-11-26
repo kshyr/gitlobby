@@ -16,7 +16,7 @@ export default async function Header() {
         height={40}
       />
       <Link href="/">
-        <h1 className="bg-gradient-to-br from-white to-[#777777] bg-clip-text text-4xl font-bold leading-relaxed text-transparent">
+        <h1 className="bg-gradient-to-br from-white to-[#909090] bg-clip-text text-4xl font-bold leading-relaxed text-transparent">
           GitLobby
         </h1>
       </Link>

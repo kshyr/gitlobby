@@ -37,7 +37,7 @@
     @apply [&>*]:border-[0.5px] [&>*]:border-white [&>*]:border-opacity-20;
   }
   .grid-layout {
-    @apply h-screen grid grid-cols-1 grid-rows-[60px_1fr_50px] border-main;
+    @apply h-screen grid grid-cols-1 grid-rows-[60px_1fr_40px] border-main;
   }
 }
 
