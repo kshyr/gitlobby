@@ -167,7 +167,10 @@ export default function Repos() {
             >
               <h1 className="text-blue-300">
                 <Link href={`/users/${repo.full_name}`}>{repo.name}</Link>
-                &#11088;{Math.floor(repo.stargazers_count / 100) / 10.0 + "k"}
+                &#11088;
+                {repo.stargazers_count <= 999
+                  ? repo.stargazers_count
+                  : Math.floor(repo.stargazers_count / 100) / 10.0 + "k"}
               </h1>
               <h2>
                 by{" "}
