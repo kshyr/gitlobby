@@ -18,20 +18,29 @@ export default function Repos() {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [searchURL, setSearchURL] = useState("");
   const [searchQuery, setSearchQuery] = useState<SearchQuery>({
     q: "",
     sort: "stars",
     order: "desc",
     perPage: 15,
-    language: "javascript",
+    language: "typescript",
+  });
+  const [newSearchQuery, setNewSearchQuery] = useState<SearchQuery>({
+    q: "",
+    sort: "stars",
+    order: "desc",
+    perPage: 15,
+    language: "typescript",
   });
 
   const gridRef = useRef<HTMLDivElement>(null);
   const fetchRepos = async () => {
     setLoading(true);
+    //?q=created:">2018-09-30"language:typescript&sort=stars&order=desc&per_page=15
     await axios
       .get(
-        `https://api.github.com/search/repositories?q=created:">2018-09-30"language:typescript&sort=${searchQuery.sort}&order=${searchQuery.order}&page=${page}&per_page=${searchQuery.perPage}`,
+        `https://api.github.com/search/repositories?q=${searchQuery.q}+language:${searchQuery.language}&sort=${searchQuery.sort}&order=${searchQuery.order}&page=${page}&per_page=${searchQuery.perPage}`,
         {
           headers: {
             Authorization: `Bearer ${process.env.GITHUB_ACCESS_TOKEN}`,
@@ -54,6 +63,10 @@ export default function Repos() {
       });
   };
 
+  /*
+  function I used to time the fetchRepos execution when scrolling to prevent too many calls 
+  unused for now
+
   const debounce = (fn: Function, ms = 300) => {
     let timeoutId: ReturnType<typeof setTimeout>;
     return function (this: any, ...args: any[]) {
@@ -61,6 +74,7 @@ export default function Repos() {
       timeoutId = setTimeout(() => fn.apply(this, args), ms);
     };
   };
+*/
 
   const handleScroll = () => {
     if (
@@ -84,20 +98,64 @@ export default function Repos() {
       className=" grid h-[calc(100vh-101px)] grid-cols-3 grid-rows-1 overflow-y-scroll"
       ref={gridRef}
     >
-      {/* misterious pixel ^ */}
-      <div className="sticky top-0 box-border flex h-full flex-row items-center justify-center">
-        <form className="w-[80%]">
-          <label htmlFor="perPage">Per Page</label>
+      <div className="sticky top-0 box-border flex h-full flex-row items-start justify-center p-10">
+        <form className="flex h-1/2 w-full flex-col gap-3 rounded-md border border-white border-opacity-40 p-4">
           <input
-            name="perPage"
-            value={searchQuery.perPage}
+            className="mx-10 border-opacity-40 bg-black"
+            type="text"
+            placeholder="Search"
+            value={newSearchQuery.q}
             onChange={(e) =>
-              setSearchQuery({
-                ...searchQuery,
-                perPage: parseInt(e.target.value),
-              })
+              setNewSearchQuery({ ...newSearchQuery, q: e.target.value })
             }
           />
+          {/* FIXME: have to run. will review this part. fetch runs previous state. */}
+          <button
+            className="border-opacity-40 bg-black"
+            type="submit"
+            onClick={(e) => {
+              e.preventDefault();
+              console.log(
+                searchQuery,
+                newSearchQuery,
+                `https://api.github.com/search/repositories?q=${searchQuery.q}&language:${searchQuery.language}&sort=${searchQuery.sort}&order=${searchQuery.order}&page=${page}&per_page=${searchQuery.perPage}`
+              );
+
+              setSearchQuery({ ...newSearchQuery });
+              setRepos([]);
+              setPage(1);
+              fetchRepos();
+            }}
+          >
+            Search
+          </button>
+          {/* change to dynamic */}
+          <label htmlFor="language">
+            Language:
+            <select className="whitespace-pre-wrap bg-black">
+              <option value="typescript">Typescript</option>
+              <option value="javascript">Javascript</option>
+              <option value="python">Python</option>
+            </select>
+          </label>
+          <label htmlFor="perPage">
+            Per Page:&nbsp;
+            <input
+              name="perPage"
+              type="number"
+              min="10"
+              max="100"
+              step="5"
+              value={newSearchQuery.perPage}
+              onChange={(e) =>
+                setNewSearchQuery({
+                  ...newSearchQuery,
+                  perPage: parseInt(e.target.value),
+                })
+              }
+              className="border-opacity-40 bg-black"
+            />
+          </label>
         </form>
       </div>
       <div className="flex flex-col items-center justify-start">
