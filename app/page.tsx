@@ -5,7 +5,6 @@ export default async function Home() {
       <div className="grid grid-cols-1 md:grid-cols-[650px_1fr_1fr]">
         <Link href="/repos">
           <div className="home-block group/repos animate-slide-in-1 border-r hover:origin-top-left">
-            <img src="undermaintenance.png" className="undermaintenance" />
             <h2 className="text-5xl group-hover/repos:text-black">
               Popular repositories
             </h2>
