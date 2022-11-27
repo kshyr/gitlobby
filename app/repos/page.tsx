@@ -41,7 +41,11 @@ export default function Repos() {
     //?q=created:">2018-09-30"language:typescript&sort=stars&order=desc&per_page=15
     await axios
       .get(
-        `https://api.github.com/search/repositories?q=${searchQuery.q}+language:${searchQuery.language}&sort=${searchQuery.sort}&order=${searchQuery.order}&page=${searchQuery.page}&per_page=${searchQuery.perPage}`,
+        `https://api.github.com/search/repositories?q=${searchQuery.q}${
+          searchQuery.language !== "" && "+language:"
+        }${searchQuery.language}&sort=${searchQuery.sort}&order=${
+          searchQuery.order
+        }&page=${searchQuery.page}&per_page=${searchQuery.perPage}`,
         {
           headers: {
             Authorization: `Bearer ${process.env.GITHUB_ACCESS_TOKEN}`,
@@ -132,7 +136,17 @@ export default function Repos() {
           {/* change to dynamic */}
           <label htmlFor="language">
             Language:
-            <select className="whitespace-pre-wrap bg-black">
+            <select
+              className="whitespace-pre-wrap bg-black"
+              value={newSearchQuery.language}
+              onChange={(e) =>
+                setNewSearchQuery({
+                  ...newSearchQuery,
+                  language: e.target.value,
+                })
+              }
+            >
+              <option value="">Any</option>
               <option value="typescript">Typescript</option>
               <option value="javascript">Javascript</option>
               <option value="python">Python</option>
