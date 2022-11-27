@@ -90,7 +90,11 @@ export default function Repos() {
     fetchRepos();
     console.log(page);
     gridRef.current?.addEventListener("scroll", handleScroll);
-    return () => gridRef.current?.removeEventListener("scroll", handleScroll);
+    gridRef.current?.addEventListener("touchmove", handleScroll);
+    return () => {
+      gridRef.current?.removeEventListener("scroll", handleScroll);
+      gridRef.current?.removeEventListener("touchmove", handleScroll);
+    };
   }, [page]);
 
   return (
