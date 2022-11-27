@@ -7,6 +7,7 @@ import Loading from "../loading";
 
 type SearchQuery = {
   q: string;
+  page: number;
   sort: string;
   order: string;
   perPage: number;
@@ -15,12 +16,11 @@ type SearchQuery = {
 
 export default function Repos() {
   const [repos, setRepos] = useState<any[]>([]);
-  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [searchURL, setSearchURL] = useState("");
   const [searchQuery, setSearchQuery] = useState<SearchQuery>({
     q: "",
+    page: 1,
     sort: "stars",
     order: "desc",
     perPage: 15,
@@ -28,6 +28,7 @@ export default function Repos() {
   });
   const [newSearchQuery, setNewSearchQuery] = useState<SearchQuery>({
     q: "",
+    page: 1,
     sort: "stars",
     order: "desc",
     perPage: 15,
@@ -40,7 +41,7 @@ export default function Repos() {
     //?q=created:">2018-09-30"language:typescript&sort=stars&order=desc&per_page=15
     await axios
       .get(
-        `https://api.github.com/search/repositories?q=${searchQuery.q}+language:${searchQuery.language}&sort=${searchQuery.sort}&order=${searchQuery.order}&page=${page}&per_page=${searchQuery.perPage}`,
+        `https://api.github.com/search/repositories?q=${searchQuery.q}+language:${searchQuery.language}&sort=${searchQuery.sort}&order=${searchQuery.order}&page=${searchQuery.page}&per_page=${searchQuery.perPage}`,
         {
           headers: {
             Authorization: `Bearer ${process.env.GITHUB_ACCESS_TOKEN}`,
@@ -51,11 +52,15 @@ export default function Repos() {
       .then((res) => {
         setLoading(false);
         // filter new array to remove duplicates
-        const newRepos = res.data.items.filter(
-          (repo: any) => !repos.some((r: any) => r.id === repo.id)
-        );
+        searchQuery.page === 1
+          ? setRepos(res.data.items)
+          : setRepos([
+              ...repos,
+              ...res.data.items.filter(
+                (repo: any) => !repos.some((r: any) => r.id === repo.id)
+              ),
+            ]);
         // TODO: if newRepos is less than perPage, then call fetchRepos until newRepos.length === perPage
-        setRepos([...repos, ...newRepos]);
       })
       .catch((err) => {
         setError(true);
@@ -82,20 +87,19 @@ export default function Repos() {
       gridRef.current.clientHeight + gridRef.current.scrollTop ===
         gridRef.current.scrollHeight
     ) {
-      setPage(page + 1);
+      setSearchQuery({ ...searchQuery, page: searchQuery.page + 1 });
     }
   };
 
   useEffect(() => {
     fetchRepos();
-    console.log(page);
     gridRef.current?.addEventListener("scroll", handleScroll);
     gridRef.current?.addEventListener("touchmove", handleScroll);
     return () => {
       gridRef.current?.removeEventListener("scroll", handleScroll);
       gridRef.current?.removeEventListener("touchmove", handleScroll);
     };
-  }, [page]);
+  }, [searchQuery]);
 
   return (
     <div
@@ -119,16 +123,8 @@ export default function Repos() {
             type="submit"
             onClick={(e) => {
               e.preventDefault();
-              console.log(
-                searchQuery,
-                newSearchQuery,
-                `https://api.github.com/search/repositories?q=${searchQuery.q}&language:${searchQuery.language}&sort=${searchQuery.sort}&order=${searchQuery.order}&page=${page}&per_page=${searchQuery.perPage}`
-              );
-
-              setSearchQuery({ ...newSearchQuery });
               setRepos([]);
-              setPage(1);
-              fetchRepos();
+              setSearchQuery({ ...newSearchQuery, page: 1 });
             }}
           >
             Search
