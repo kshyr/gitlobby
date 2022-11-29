@@ -147,9 +147,25 @@ export default function Repos() {
               }
             >
               <option value="">Any</option>
-              <option value="typescript">Typescript</option>
-              <option value="javascript">Javascript</option>
+              <option value="typescript">TypeScript</option>
+              <option value="javascript">JavaScript</option>
               <option value="python">Python</option>
+            </select>
+          </label>
+          <label htmlFor="order">
+            Order:
+            <select
+              className="whitespace-pre-wrap bg-black"
+              value={newSearchQuery.order}
+              onChange={(e) =>
+                setNewSearchQuery({
+                  ...newSearchQuery,
+                  order: e.target.value,
+                })
+              }
+            >
+              <option value="desc">Descending</option>
+              <option value="asc">Ascending</option>
             </select>
           </label>
           <label htmlFor="perPage">
