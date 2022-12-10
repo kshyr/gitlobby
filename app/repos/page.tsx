@@ -188,19 +188,21 @@ export default function Repos() {
           </label>
         </form>
       </div>
-      <div className="flex flex-col items-center justify-start">
+      <div className="mt-3 flex flex-col items-center justify-start gap-3">
         {repos.map((repo, idx) => {
           return (
             <div
-              className="flex w-full flex-col items-center justify-start rounded-md border border-white border-opacity-20 p-2"
+              className="flex w-full flex-col items-center justify-start rounded-md border border-white border-opacity-20 py-2 px-6"
               key={idx}
             >
-              <h1 className="text-blue-300">
+              <h1 className="text-lg text-blue-300">
                 <Link href={`/users/${repo.full_name}`}>{repo.name}</Link>
-                &#11088;
-                {repo.stargazers_count <= 999
-                  ? repo.stargazers_count
-                  : Math.floor(repo.stargazers_count / 100) / 10.0 + "k"}
+                <span className="texl-md text-[#ddafdb]">
+                  &#11088;
+                  {repo.stargazers_count <= 999
+                    ? repo.stargazers_count
+                    : Math.floor(repo.stargazers_count / 100) / 10.0 + "k"}
+                </span>
               </h1>
               <h2>
                 by{" "}
@@ -211,9 +213,8 @@ export default function Repos() {
                   {repo.owner.login}
                 </Link>
               </h2>
-              <p>{repo.description}</p>
-              <p>Language: {repo.language}</p>
-              <p className="">
+              <p className="mt-4 text-center">{repo.description}</p>
+              <p className="my-2 opacity-75">
                 {repo.topics?.map((topic: string, idx: number) => {
                   return (
                     <span
