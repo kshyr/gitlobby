@@ -4,15 +4,14 @@
 
 @layer base {
   @font-face {
-    font-family: 'Mona Sans';
-    src:
-      url('Mona-Sans.woff2') format('woff2 supports variations'),
-      url('Mona-Sans.woff2') format('woff2-variations');
+    font-family: "Mona Sans";
+    src: url("Mona-Sans.woff2") format("woff2 supports variations"),
+      url("Mona-Sans.woff2") format("woff2-variations");
     font-weight: 200 900;
     font-stretch: 75% 125%;
   }
   * {
-    @apply text-white box-border;
+    @apply box-border text-white;
   }
   body {
     @apply bg-black;
@@ -24,7 +23,7 @@
     @apply font-normal;
   }
   ::-webkit-scrollbar {
-    @apply w-2 right-10;
+    @apply right-10 w-2;
   }
   ::-webkit-scrollbar-track {
     @apply bg-transparent;
@@ -32,13 +31,18 @@
   ::-webkit-scrollbar-thumb {
     @apply bg-white bg-opacity-40 hover:bg-opacity-60;
   }
-
 }
 
 @layer components {
   .home-block {
-    @apply flex flex-col justify-center items-center border-white border-opacity-20 gap-3
-    hover:bg-white hover:scale-105 transition-all ease-in-out duration-500 h-full w-full relative overflow-hidden z-10 hover:z-20;
+    @apply relative z-10 flex h-full w-full flex-col items-center
+    justify-center gap-3 overflow-hidden border-white border-opacity-20 transition-all duration-500 ease-in-out hover:z-20 hover:scale-105 hover:bg-white;
+  }
+  .home-block-title {
+    @apply text-center text-3xl xl:text-5xl;
+  }
+  .home-block-description {
+    @apply text-center text-base;
   }
   .undermaintenance {
     @apply absolute top-6 right-[-1.5rem] w-28 rotate-45;
@@ -47,6 +51,8 @@
     @apply [&>*]:border-[0.5px] [&>*]:border-white [&>*]:border-opacity-20;
   }
   .grid-layout {
+    @apply border-main grid h-screen grid-cols-1 grid-rows-[60px_1fr_40px];
+  }
   .underline-animation {
     @apply before:absolute before:-bottom-0.5 before:left-0 before:block before:h-[1px] 
     before:w-full before:origin-center before:scale-x-0
@@ -60,6 +66,6 @@ body {
   height: 100%;
   padding: 0;
   margin: 0;
-  font-family: 'Mona Sans';
+  font-family: "Mona Sans";
   box-sizing: border-box;
 }
