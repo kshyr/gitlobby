@@ -10,12 +10,17 @@ export default function Footer() {
         </strong>
       </span>
       <span className="font-extralight">
-        <strong>Kostiantyn Shyrolapov</strong> @ 2022
+        <strong className="underline-animation relative">
+          <a href="https://kshyr.dev/" target="_blank" rel="noreferrer">
+            Kostiantyn Shyrolapov
+          </a>
+        </strong>{" "}
+        @ 2022
       </span>
 
       <span className="font-extralight">
         Powered by{" "}
-        <strong className="bg-gradient-to-br from-white to-[#aaaaaa] bg-clip-text font-normal text-transparent underline decoration-[#aaaaaa] underline-offset-2 hover:decoration-white">
+        <strong className="bg-gradient-to-br from-white to-[#aaaaaa] bg-clip-text font-normal text-transparent underline decoration-[#aaaaaa] underline-offset-2 transition-colors duration-300 hover:text-white hover:decoration-white">
           <a
             href="https://docs.github.com/en/rest"
             target="_blank"

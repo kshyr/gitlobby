@@ -47,7 +47,11 @@
     @apply [&>*]:border-[0.5px] [&>*]:border-white [&>*]:border-opacity-20;
   }
   .grid-layout {
-    @apply h-screen grid grid-cols-1 grid-rows-[60px_1fr_40px] border-main;
+  .underline-animation {
+    @apply before:absolute before:-bottom-0.5 before:left-0 before:block before:h-[1px] 
+    before:w-full before:origin-center before:scale-x-0
+    before:bg-white before:transition before:duration-300
+    before:ease-in-out before:content-[''] before:hover:scale-x-100;
   }
 }
 
